@@ -1,0 +1,43 @@
+\section{Exponentiation}
+
+Using equation \ref{eq:1} we may quickly notice that
+
+\begin{equation}
+b^n = \underbrace{b \times \cdots \times b}_n = base^{(\log_{base} (b))*n}
+\end{equation}
+
+That works with any logarithmic base.
+In fact, this is the way how exponentiation is computed on computer.
+x86 CPU and x87 FPU has no special instruction for it.
+
+This is the way how pow() function works in Glibc: \url{https://github.com/lattera/glibc/blob/master/sysdeps/x86_64/fpu/e_powl.S\#L189}:\\
+
+\begin{lstlisting}[caption={Glibc source code, fragment of the pow() function}]
+
+...
+
+7:	fyl2x			// log2(x) : y
+8:	fmul	%st(1)		// y*log2(x) : y
+	fst	%st(1)		// y*log2(x) : y*log2(x)
+	frndint			// int(y*log2(x)) : y*log2(x)
+	fsubr	%st, %st(1)	// int(y*log2(x)) : fract(y*log2(x))
+	fxch			// fract(y*log2(x)) : int(y*log2(x))
+	f2xm1			// 2^fract(y*log2(x))-1 : int(y*log2(x))
+	faddl	MO(one)		// 2^fract(y*log2(x)) : int(y*log2(x))
+	fscale			// 2^fract(y*log2(x))*2^int(y*log2(x)) : int(y*log2(x))
+	fstp	%st(1)		// 2^fract(y*log2(x))*2^int(y*log2(x))
+
+...
+
+\end{lstlisting}
+
+x87 FPU has the following instructions used Glibc's version of pow() function:
+FYL2X (compute $y \cdot log_2 x$), F2XM1 (compute $2^x–1$).
+Even more than that, FYL2X instruction doesn't compute binary logarithm alone, it also performs multiplication operation, 
+to provide more easiness in exponentiation computation.
+
+It works because calculating $2^x$ (exponentiation with base 2) is faster than exponentiation of arbitrary number.
+
+Using hacker's tricks, it's also possible to take advantage of the IEEE 754 format and SSE instructions set:\\
+\url{http://stackoverflow.com/a/6486630/4540328}.
+

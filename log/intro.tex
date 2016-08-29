@@ -1,0 +1,68 @@
+\section{Introduction}
+
+\subsection{Children's approach}
+
+When children argue about how big their favorite numbers are, they speaking about how many zeroes it has:
+``$x$ has $n$ zeroes!''
+``No, my $y$ is bigger, it has $m>n$ zeroes!''
+
+This is exactly notion of common (base 10) logarithm.
+
+Googol ($10^{100}$) has 100 zeroes, so $log_{10} (googol) = 100$.
+
+Let's take some big number, like 12th Mersenne prime:
+
+\begin{lstlisting}[caption=Wolfram Mathematica]
+In[]:= 2^127 - 1
+Out[]= 170141183460469231731687303715884105727
+\end{lstlisting}
+
+Wow, it's so big. How can we measure it in childish terms? How many digits it has? We can count using common (base 10) logarithm:
+
+\begin{lstlisting}[caption=Wolfram Mathematica]
+In[]:= Log[10, 2^127 - 1] // N
+Out[]= 38.2308
+\end{lstlisting}
+
+So it has 39 digits.
+
+Another question, how may decimal digits 1024-bit RSA key has?
+
+\begin{lstlisting}[caption=Wolfram Mathematica]
+In[]:= 2^1024
+Out[]= 17976931348623159077293051907890247336179769789423065727343008\
+1157732675805500963132708477322407536021120113879871393357658789768814\
+4166224928474306394741243777678934248654852763022196012460941194530829\
+5208500576883815068234246288147391311054082723716335051068458629823994\
+7245938479716304835356329624224137216
+
+In[]:= Log10[2^1024] // N
+Out[]= 308.255
+\end{lstlisting}
+
+309 decimal digits.
+
+\subsection{Scientists' and engineers' approach}
+
+Interestingly enough, scientists' and engineers' approach is not very different from children's.
+They are not interesting in noting each digit of some big number, they are usually interesting in three properties of some number:
+1) sign; 2) first $n$ digits (significand or mantissa); 3) exponent (how many digits the number has).
+
+The common way to represent a real number in handheld calculators and FPUs is:
+
+\begin{equation}
+(sign) significand \times 10^{exponent}
+\end{equation}
+
+For example:
+
+\begin{equation}
+-1.987126381 \times 10^{41}
+\end{equation}
+
+It was common for scientific handheld calculators to use the first ~10 digits of significand and ignore everything behind.
+Storing the whole number down to the last digit is 1) very expensive; 2) hardly useful.
+
+The number in IEEE 754 format (most popular way of representing real numbers in computers) has these three parts, however, 
+it has different base (2 instead of 10).
+

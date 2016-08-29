@@ -1,0 +1,19 @@
+\section{Common (base 10) logarithms}
+
+Also known as ``decimal logarithms''.
+Denoted as \texttt{lg} on handheld calculators.
+
+10 is a number inherently linked with human's culture, since almost all humans has 10 digits.
+Decimal system is a result of it.
+Nevertheless, 10 has no special meaning in mathematics and science in general.
+So are common logarithms.
+
+One notable use is a decibel logarithmic scale, which is based of common logarithm.
+
+Common logarithms are sometimes used to calculate space for decimal number in the string or on the screen.
+How many characters you should allocate for 64-bit number? 20, because $log_{10}(2^{64}) = 19.2...$.
+
+Functions like \texttt{itoa()}\footnote{\url{http://www.cplusplus.com/reference/cstdlib/itoa/}}
+(which converts input number to a string) can calculate output buffer size precisely, 
+calculating common logarithm of the input number.
+

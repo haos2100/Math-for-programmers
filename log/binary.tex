@@ -1,0 +1,208 @@
+\section{Binary logarithm}
+
+Sometimes denoted as lb(), binary logarithms are prominent in computer science, 
+because numbers are usually stored and processed in computer in binary form.
+
+\subsection{Denoting a number of bits for some value}
+
+How many bits we need to allocate to store googol number ($10^{100}$)?
+
+\begin{lstlisting}[caption=Wolfram Mathematica]
+In[]:= Log2[10^100] // N
+Out[]= 332.193
+\end{lstlisting}
+
+Binary logarithm of some number is the number of how many bits needs to be allocated.
+
+If you have a variable which always has $2^x$ form, it's a good idea to store a binary logarithmic representation ($\log_2 (x)$) instead of it.
+There are at least two reasons:
+1) the programmer shows to everyone that the number has always $2^x$ form;
+2) it's error-prone, it's not possible to accidentally store a number in some other form to this variable, so this is some kind of protection;
+3) logarithmic representation is more compact.
+There is, however, performance issue: the number must be converted back, but this is just one shifting operation (\texttt{1<<log\_n}).
+
+Here is an example from NetBSD NTP client ( \texttt{netbsd-5.1.2/usr/src/dist/ntp/include/ntp.h} ):
+
+\begin{lstlisting}[caption=C code]
+/*
+ * Poll interval parameters
+ */
+...
+#define NTP_MINPOLL     4       /* log2 min poll interval (16 s) */
+#define NTP_MINDPOLL    6       /* log2 default min poll (64 s) */
+#define NTP_MAXDPOLL    10      /* log2 default max poll (~17 m) */
+#define NTP_MAXPOLL     17      /* log2 max poll interval (~36 h) */
+\end{lstlisting}
+
+Couple examples from zlib (\texttt{deflate.h}):
+
+\begin{lstlisting}[caption=C code]
+    uInt  w_size;        /* LZ77 window size (32K by default) */
+    uInt  w_bits;        /* log2(w_size)  (8..16) */
+    uInt  w_mask;        /* w_size - 1 */
+\end{lstlisting}
+
+Another piece from zlib ( \texttt{contrib/blast/blast.c} ):
+
+\begin{lstlisting}[caption=C code]
+    int dict;           /* log2(dictionary size) - 6 */
+\end{lstlisting}
+
+If you need to generate bitmasks in range 1, 2, 4, 8...0x80000000, it is good idea to assign self-documenting name to iterator variable:
+
+\begin{lstlisting}[caption=C code]
+for (log2_n=1; log2_n<32; log2_n++)
+    1<<log2_n;
+\end{lstlisting}
+
+Now about compactness, here is the fragment I found in OpenBSD, related to SGI IP22 architecture
+\footnote{\url{http://www.linux-mips.org/wiki/IP22}} \\
+( \texttt{OS/OpenBSD/sys/arch/sgi/sgi/ip22\_machdep.c} ):
+
+\begin{lstlisting}[caption=C code]
+                /*
+                 * Secondary cache information is encoded as WWLLSSSS, where
+                 * WW is the number of ways
+                 *   (should be 01)
+                 * LL is Log2(line size)
+                 *   (should be 04 or 05 for IP20/IP22/IP24, 07 for IP26)
+                 * SS is Log2(cache size in 4KB units)
+                 *   (should be between 0007 and 0009)
+                 */
+\end{lstlisting}
+
+Here is another example of using binary logarithm in Mozilla JavaScript engine (JIT compiler)
+\footnote{\url{http://fossies.org/linux/seamonkey/mozilla/js/src/jit/mips/CodeGenerator-mips.cpp}}.
+If some number is multiplied by $2^x$, the whole operation can be replaced by bit shift left.
+The following code ( \texttt{js/src/jit/mips/CodeGenerator-mips.cpp} ), 
+when translating multiplication operation into MIPS machine code, first, get assured if the number 
+is really has $2^x$ form, then it takes binary logarithm of it and generates MIPS SLL instruction, which states for ``Shift Left Logical''.
+
+\begin{lstlisting}[caption=Mozilla JavaScript JIT compiler (translating multiplication operation into MIPS bit shift instruction)]
+bool
+ CodeGeneratorMIPS::visitMulI(LMulI *ins)
+ {
+           default:
+             uint32_t shift = FloorLog2(constant);
+ 
+             if (!mul->canOverflow() && (constant > 0)) {
+                 // If it cannot overflow, we can do lots of optimizations.
+                 uint32_t rest = constant - (1 << shift);
+ 
+                 // See if the constant has one bit set, meaning it can be
+                 // encoded as a bitshift.
+                 if ((1 << shift) == constant) {
+                     masm.ma_sll(dest, src, Imm32(shift));
+                     return true;
+                 }
+
+...
+
+\end{lstlisting}
+
+Thus, for example, $x=y \cdot 1024$ (which is the same as $x=y \cdot 2^{10}$) translates into $x=y<<10$.
+
+\subsection{Calculating binary logarithm}
+
+If all you need is integer result of binary logarithm ($abs(\log_2(x))$ or $\lfloor \log_2(x) \rfloor$), 
+calculating is just counting all binary digits in the number minus 1.
+In practice, this is the task of calculating leading zeroes.
+
+Here is example from Mozilla libraries ( \texttt{mfbt/MathAlgorithms.h}
+\footnote{\url{http://fossies.org/linux/seamonkey/mozilla/mfbt/MathAlgorithms.h}} ):
+
+\begin{lstlisting}[caption=Mozilla libraries]
+class FloorLog2<T, 4>
+{
+public:
+   static uint_fast8_t compute(const T aValue)
+   {
+     return 31u - CountLeadingZeroes32(aValue | 1);
+   }
+ };
+
+inline uint_fast8_t
+ CountLeadingZeroes32(uint32_t aValue)
+ {
+   return __builtin_clz(aValue);
+ }
+\end{lstlisting}
+
+Latest x86 CPUs has LZCNT (Leading Zeroes CouNT) instruction for that
+\footnote{GNU \texttt{\_\_builtin\_clz()} function on x86 architecture can be thunk for LZCNT}, 
+but there is also BSR (Bit Scan Reverse) instruction appeared in 80386, which can be used for the same purpose.
+More information about this instruction on various architectures: \url{https://en.wikipedia.org/wiki/Find_first_set}.
+
+There are also quite esoteric methods to count leading zeroes without this specialized instruction: \url{http://yurichev.com/blog/de_bruijn/}.
+
+\subsection{O(log n) time complexity}
+
+Time complexity\footnote{\url{https://en.wikipedia.org/wiki/Time_complexity}} is a measure of speed of a specific algorithm 
+in relation to the size of input data.
+
+O(1) -- time is always constant, to matter what size of input data. Simplest example is object getter -- it just returns some value.
+
+O(n) -- time is linear, growing according to the size of input data. Simplest example is search for some value in the input array.
+The larger array, the slowest search.
+
+O(log n) -- time is logarithmic to the input data.
+Let's see how this can be.
+
+Let's recall child's number guessting game\footnote{\url{http://rosettacode.org/wiki/Guess_the_number}}.
+One player think about some number, the other should guess it, offering various versions.
+First player answers, is guessed number is larger or less.
+Typical dialogue can be as the follows:
+
+\begin{lstlisting}
+-- I think of a number in 1..100 range.
+-- Is it 50?
+-- My number is larger.
+-- 75?
+-- It is lesser.
+-- 63?
+-- Larger.
+-- 69?
+-- Larger.
+-- 72?
+-- Lesser.
+-- 71?
+-- Correct.
+\end{lstlisting}
+
+Best possible strategy is to divide the range in halves.
+The range is shorten at each step by half.
+At the very end, the range has lenght of 1, and this is correct answer.
+Maximal number of steps using the strategy described here are $\log_2(initial\_range)$.
+In our example, initial range is 100, so the maximum number of steps is 6.64... or just 7.
+If the initial range is 200, maximum number of steps are $\log_2(200)=7.6..$ or just 8. The number of steps increasing by 1 when the range is doubled.
+Indeed, doubled range indicates that the guesser needs just one more step at the start, not more.
+If the initial range is 1000, numbers of steps are $\log_2(1000)=9.96...$ or just 10.
+
+This is exactly O(log n) time complexity.\\
+\\
+Now let's consider couple of practical real-world algorithms.
+One interesting thing is that if the input array is sorted, and its size is known, and we need to find some value in it, the algorithm works exactly
+in the same way as child's number guessing game!
+The algorithm starts in the middle of array and compare the value there with the value sought-after.
+Depending on the result (larger or lesser), the \textit{cursor} is moved left or right and operating range is decreasing by half.
+This is called binary search\footnote{\url{https://en.wikipedia.org/wiki/Binary_search_algorithm}}, and there is the \texttt{bsearch()} function in 
+standard C/C++ library\footnote{\url{http://en.cppreference.com/w/cpp/algorithm/bsearch}}.\\
+\\
+Here is how binary search is used in git: \url{https://www.kernel.org/pub/software/scm/git/docs/git-bisect.html}.\\
+\\
+Another prominent example in CS is binary trees. They are heavily used internally in almost any programming language, when you use set, map, dictionary, etc.
+
+Here is a simple example with the following numbers (or keys) inserted into binary tree:
+0, 1, 2, 3, 5, 6, 9, 10, 11, 12, 20, 99, 100, 101, 107, 1001, 1010.
+
+\input{log/binary_tree_tikz}
+
+And here is how binary tree search works: put \textit{cursor} at the root. Now compare the value under it with the value sought-after.
+If the value we are seeking for is lesser than the current, take a move into left node. If it's bigger, move to the right node.
+Hence, each left descendant node has value lesser than in 
+ascendant node.
+Each right node has value which is bigger.
+The tree must be rebalanced after each modification (I gave examples of it in my book about reverse engineering (\url{http://beginners.re/}, 51.4.4)).
+Nevertheless, lookup function is very simple, and maximal number of steps is $\log_n(number\_of\_nodes)$.
+We've got 17 elements in the tree at the picture, $\log_2(17)=4.08...$, indeed, there are 5 tiers in the tree.
+

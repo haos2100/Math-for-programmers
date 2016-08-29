@@ -1,0 +1,67 @@
+﻿\documentclass{book}
+
+\usepackage{cmap}
+
+\usepackage[russian,english]{babel}
+\usepackage[T2A]{fontenc}
+\usepackage[default]{sourcesanspro}
+
+\usepackage{listings}
+\usepackage{url}
+\usepackage[cm]{fullpage}
+\usepackage{graphicx}
+\usepackage{framed}
+\usepackage{color}
+\usepackage{float}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usepackage[nottoc]{tocbibind}
+%\usepackage{esint}
+%\usepackage{charter}
+%\usepackage[charter]{mathdesign}
+\usepackage[]{hyperref} % should be last
+
+\definecolor{lstbgcolor}{rgb}{0.94,0.94,0.94}
+
+\newcommand{\TT}[1]{\texttt{#1}}
+
+\newcommand{\TITLE}{Mathematical notes}
+\newcommand{\AUTHOR}{Dennis Yurichev \TT{<dennis(a)yurichev.com>}}
+
+\hypersetup{
+    pdftex,
+    colorlinks=true,
+    allcolors=blue,
+    pdfauthor={\AUTHOR},
+    pdftitle={\TITLE},
+    pdfpagemode=None
+}
+
+\lstset{
+    backgroundcolor=\color{lstbgcolor},
+    basicstyle=\ttfamily, 
+    breaklines=true,
+    frame=single,
+    columns=fullflexible,keepspaces,
+}
+
+\author{\AUTHOR}
+\title{\TITLE}
+\date{August-2015 --- August 2016}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\section*{Thanks}
+
+Thanks to those who helped: Slava ``Avid'' Kazakov, Serhiy Matviychuk.
+
+\mainmatter
+
+% chapters
+\input{log/main}
+
+\end{document}
