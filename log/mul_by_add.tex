@@ -204,7 +204,7 @@ IEEE 754 floating point number consists of sign, significand and exponent.
 Internally, its simplified representation is:
 
 \begin{equation}
-(-1)^{sign} \cdot significand \times 2^{exponent}
+(-1) \cdot sign \cdot significand \times 2^{exponent}
 \end{equation}
 
 Given that, the FPU may process significands and exponents separately during multiplication, 
@@ -238,10 +238,11 @@ And here is subtracting of exponents during division:\\
 Here is also multiplication function from FPU emulator in Linux kernel:
 \url{https://github.com/torvalds/linux/blob/da957e111bb0c189a4a3bf8a00caaecb59ed94ca/arch/x86/math-emu/reg_u_mul.S\#L93}.
 
-\subsection{Check, if the product will overflow}
+%\subsection{Check, if the product will overflow}
 
-Using logarithmic versions of two numbers, it is easy to check if the product of them will overflow in current environment (32-bit or 64-bit CPU registers).
-Perhaps, programming languages with dynamic typing (like LISP, Python, Ruby, BASIC, etc) can check, 
-if the current number must be switched to bignum (if the result is too big to fit in the CPU register) or not.
+% НЕТ
 
+%Using logarithmic versions of two numbers, it is easy to check if the product of them will overflow in current environment (32-bit or 64-bit CPU registers).
+%Perhaps, programming languages with dynamic typing (like LISP, Python, Ruby, BASIC, etc) can check, 
+%if the current number must be switched to bignum (if the result is too big to fit in the CPU register) or not.
 
