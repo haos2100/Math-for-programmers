@@ -6,6 +6,8 @@
 \usepackage[T2A]{fontenc}
 \usepackage[default]{sourcesanspro}
 
+\usepackage{ifthen}
+
 \usepackage{listings}
 \usepackage{url}
 \usepackage[cm]{fullpage}
@@ -19,13 +21,14 @@
 %\usepackage{esint}
 %\usepackage{charter}
 %\usepackage[charter]{mathdesign}
+\usepackage[footnote,printonlyused,withpage]{acronym}
 \usepackage[]{hyperref} % should be last
 
 \definecolor{lstbgcolor}{rgb}{0.94,0.94,0.94}
 
 \newcommand{\TT}[1]{\texttt{#1}}
 
-\newcommand{\TITLE}{Notes on applied mathematics}
+\newcommand{\TITLE}{Math-notes}
 \newcommand{\AUTHOR}{Dennis Yurichev \TT{<dennis(@)yurichev.com>}}
 
 \hypersetup{
@@ -47,21 +50,24 @@
 
 \author{\AUTHOR}
 \title{\TITLE}
-\date{August-2015 --- August 2016}
+%\date{August-2015 --- ...}
 
 \begin{document}
+
+\input{myheadings}
 
 \maketitle
 
 \tableofcontents
 
-\section*{Thanks}
+%\section*{Thanks}
 
-Thanks to those who helped: Slava ``Avid'' Kazakov, Serhiy Matviychuk.
+%Thanks to those who helped: Slava ``Avid'' Kazakov, Serhiy Matviychuk.
 
 \mainmatter
 
-% chapters
+%\input{modulo/main}
+\input{prob/main}
 \input{log/main}
 
 \end{document}

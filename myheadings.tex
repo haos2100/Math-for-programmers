@@ -1,0 +1,57 @@
+﻿% reworked from http://tex.stackexchange.com/questions/26181/create-context-sensitive-headings
+
+\newcommand{\currentlevel}{}
+
+\newcommand{\leveldown}%
+{   
+    \ifthenelse{\equal{\currentlevel}{sp}}%
+    {\renewcommand{\currentlevel}{sp}}{}%    
+    \ifthenelse{\equal{\currentlevel}{p}}%
+    {\renewcommand{\currentlevel}{sp}}{}%    
+    \ifthenelse{\equal{\currentlevel}{sss}}%
+    {\renewcommand{\currentlevel}{p}}{}%    
+    \ifthenelse{\equal{\currentlevel}{ss}}%
+    {\renewcommand{\currentlevel}{sss}}{}%    
+    \ifthenelse{\equal{\currentlevel}{s}}%
+    {\renewcommand{\currentlevel}{ss}}{}%
+    \ifthenelse{\equal{\currentlevel}{c}}%
+    {\renewcommand{\currentlevel}{s}}{}%
+}
+
+\newcommand{\levelup}%
+{
+    \ifthenelse{\equal{\currentlevel}{c}}%
+    {\renewcommand{\currentlevel}{c}}{}%
+    \ifthenelse{\equal{\currentlevel}{s}}%
+    {\renewcommand{\currentlevel}{c}}{}%
+    \ifthenelse{\equal{\currentlevel}{ss}}%
+    {\renewcommand{\currentlevel}{s}}{}%
+    \ifthenelse{\equal{\currentlevel}{sss}}%
+    {\renewcommand{\currentlevel}{ss}}{}
+    \ifthenelse{\equal{\currentlevel}{p}}%
+    {\renewcommand{\currentlevel}{sss}}{}
+    \ifthenelse{\equal{\currentlevel}{sp}}%
+    {\renewcommand{\currentlevel}{p}}{}%
+}
+
+\newcommand{\myheading}[1]%
+{   \ifthenelse{\equal{\currentlevel}{c}}%
+    {\chapter{#1}}{}%
+    \ifthenelse{\equal{\currentlevel}{s}}%
+    {\section{#1}}{}%
+    \ifthenelse{\equal{\currentlevel}{ss}}%
+    {\subsection{#1}}{}%
+    \ifthenelse{\equal{\currentlevel}{sss}}%
+    {\subsubsection{#1}}{}%
+    \ifthenelse{\equal{\currentlevel}{p}}%
+    {\myparagraph{#1}}{}%
+    \ifthenelse{\equal{\currentlevel}{sp}}%
+    {\mysubparagraph{#1}}{}%
+}
+
+\newcommand{\newchapter}[1]{\chapter{#1}\renewcommand{\currentlevel}{c}}
+\newcommand{\newsection}[1]{\section{#1}\renewcommand{\currentlevel}{s}}
+\newcommand{\newsubection}[1]{\subsection{#1}\renewcommand{\currentlevel}{ss}}
+\newcommand{\newsubsubection}[1]{\subsubsection{#1}\renewcommand{\currentlevel}{sss}}
+\newcommand{\newparagraph}[1]{\myparagraph{#1}\renewcommand{\currentlevel}{p}}
+\newcommand{\newsubparagraph}[1]{\mysubparagraph{#1}\renewcommand{\currentlevel}{sp}}

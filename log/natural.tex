@@ -1,10 +1,12 @@
-\section{Natural logarithm}
+\myheading{Natural logarithm}
 
 Natural logarith (denoted as \texttt{ln} on handheld calculators, and sometimes denoted just as \texttt{log})
 is logarithm of base $e=2.718281828...$.
 Where this constant came from?
 
-\subsection{Savings account in your bank}
+\leveldown{}
+
+\myheading{Savings account in your bank}
 
 Let's say you make a deposit into bank, say, 100 dollars (or any other currency).
 They offer 2.5\% per year (annual percentage yield).
@@ -74,9 +76,11 @@ would be $100 \cdot e$.
 It's not possible in the real world, so the final amount is approaches this value, but is never equal to it.
 Mathematically speaking, its limit is $100 \cdot e$.
 
-\subsection{Exponential decay}
+\myheading{Exponential decay}
 
-\subsubsection{Capacitor discharge}
+\leveldown{}
+
+\myheading{Capacitor discharge}
 
 % TODO redraw! ибо спизжено. https://en.wikipedia.org/wiki/Talk%3ARC_circuit#RC_Circuits
 \begin{figure}[H]
@@ -145,7 +149,7 @@ Plot[v*E^((-t)/(r*c)), {t, 0, 5},
 \dots and we see that these points corresponds to $ln(3)$ and $ln(7)$.
 That means, $\frac{1}{3}$ of charge is left after $ln(3) \approx 1.098...$ seconds and $\frac{1}{7}$ of charge after $ln(7) \approx 1.945...$ seconds.
 
-\subsubsection{Radioactive decay}
+\myheading{Radioactive decay}
 
 Radioactive decay is also exponential decay.
 Let's take Polonium 210 as an example\footnote{\url{https://en.wikipedia.org/wiki/Polonium}}.
@@ -186,7 +190,7 @@ Plot[E^(-l*t), {t, 0, 1000},
 \caption{Exponential decay of Polonium 210}
 \end{figure}
 
-\subsubsection{Beer froth}
+\myheading{Beer froth}
 
 There is even the paper (got Ig Nobel prize in 2002), author's of which demonstrates that beer froth is also decays exponentially:
 \url{http://iopscience.iop.org/0143-0807/23/1/304/},
@@ -200,7 +204,7 @@ There is even the paper (got Ig Nobel prize in 2002), author's of which demonstr
 
 The paper can be taken as a joke, nevertheless, it's a good demonstration of exponential decay.
 
-\subsubsection{Conclusion}
+\myheading{Conclusion}
 
 Capacitor discharge and radioactive decay obeys the same law of halving some amount after equal gaps of time:
 
@@ -212,4 +216,8 @@ Decay constant in case of capacitor discharge defined by product of resistance a
 The bigger one of them, the slower decay.
 
 Natural logarithm is used to calculate gap of time (half-life or half-time) judging by decay constant.
+
+\levelup{}
+
+\levelup{}
 

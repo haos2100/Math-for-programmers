@@ -1,0 +1,21 @@
+\myheading{Square root}
+
+Likewise, square root can be computed in the following way:
+
+\begin{equation}
+\sqrt[2]{x} = 2^{\frac{\log_2{x}}{2}}
+\end{equation}
+
+This leads to interesting consequence: if you have a value stored in logarithmical form and you need to take
+square root of it and leave it in logarithmical form, all you need is just to divide it by 2.
+
+And since floating point numbers encoded in IEEE 754 has exponent encoded in logarithmical form,
+you need just to shift it right by 1 bit to get square root:
+\url{https://en.wikipedia.org/wiki/Methods_of_computing_square_roots#Approximations_that_depend_on_the_floating_point_representation}.
+
+Likewise, cube root and nth root can be calculated using logarithm of corresponding base:
+
+\begin{equation}
+\sqrt[b]{x} = b^{\frac{\log_b{x}}{b}}
+\end{equation}
+

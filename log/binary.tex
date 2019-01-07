@@ -1,9 +1,11 @@
-\section{Binary logarithm}
+\myheading{Binary logarithm}
 
 Sometimes denoted as lb(), binary logarithms are prominent in computer science, 
 because numbers are usually stored and processed in computer in binary form.
 
-\subsection{Denoting a number of bits for some value}
+\leveldown{}
+
+\myheading{Denoting a number of bits for some value}
 
 How many bits we need to allocate to store googol number ($10^{100}$)?
 
@@ -102,7 +104,7 @@ bool
 
 Thus, for example, $x=y \cdot 1024$ (which is the same as $x=y \cdot 2^{10}$) translates into $x=y<<10$.
 
-\subsection{Calculating binary logarithm}
+\myheading{Calculating binary logarithm}
 
 If all you need is integer result of binary logarithm ($abs(\log_2(x))$ or $\lfloor \log_2(x) \rfloor$), 
 calculating is just counting all binary digits in the number minus 1.
@@ -135,7 +137,7 @@ More information about this instruction on various architectures: \url{https://e
 
 There are also quite esoteric methods to count leading zeroes without this specialized instruction: \url{http://yurichev.com/blog/de_bruijn/}.
 
-\subsection{O(log n) time complexity}
+\myheading{O(log n) time complexity}
 
 Time complexity\footnote{\url{https://en.wikipedia.org/wiki/Time_complexity}} is a measure of speed of a specific algorithm 
 in relation to the size of input data.
@@ -205,4 +207,6 @@ Each right node has value which is bigger.
 The tree must be rebalanced after each modification (I gave examples of it in my book about reverse engineering (\url{http://beginners.re/}, 51.4.4)).
 Nevertheless, lookup function is very simple, and maximal number of steps is $\log_n(number\_of\_nodes)$.
 We've got 17 elements in the tree at the picture, $\log_2(17)=4.08...$, indeed, there are 5 tiers in the tree.
+
+\levelup{}
 

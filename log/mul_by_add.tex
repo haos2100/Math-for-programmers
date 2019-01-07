@@ -1,4 +1,4 @@
-\section{Multiplication and division using addition and subtraction}
+\myheading{Multiplication and division using addition and subtraction}
 
 It is possible to use addition instead of multiplication, using the following rule:
 
@@ -13,7 +13,9 @@ The result if the number with 5 zeroes. It's the same as $\log_{10} (100) + \log
 
 Division can be replaced with subtraction in the very same way.
 
-\subsection{Logarithmic slide rule}
+\leveldown{}
+
+\myheading{Logarithmic slide rule}
 
 Here is very typical slide rule\footnote{I took screenshots at \url{http://museum.syssrc.com/static/sliderule.html}}.
 It has many scales, but take a look on C and D scales, they are the same:
@@ -50,11 +52,11 @@ Here is another example from Wikipedia:
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.66]{log/403px-Slide_rule_example2_with_labels.svg.png}
+\includegraphics[scale=0.66]{log/403px-Slide_rule_example2_with_labels.png}
 \caption{Example from Wikipedia}
 \end{figure}
 
-\subsection{Logarithmic tables}
+\myheading{Logarithmic tables}
 
 As we can see, the precision of logarithmic slide rule is up to 1 or 2 decimal digits after point.
 Using precomputed logarithmic tables, it's possible to calculate product of two numbers with a precision up to $\approx 4$ digits.
@@ -85,7 +87,7 @@ Another well-known book in western world with logarithmic and other tables is
 Daniel Zwillinger - CRC Standard Mathematical Tables and Formulae 
 (up to 30th edition, the logarithmic tables are dropped after).
 
-\subsection{Working with very small and very large numbers}
+\myheading{Working with very small and very large numbers}
 
 It's hard to believe, but the rule used on logarithmic slide rule for multiplication is still used sometimes in software code.
 It's a problem to work with very small (denormalized) numbers
@@ -245,4 +247,6 @@ Here is also multiplication function from FPU emulator in Linux kernel:
 %Using logarithmic versions of two numbers, it is easy to check if the product of them will overflow in current environment (32-bit or 64-bit CPU registers).
 %Perhaps, programming languages with dynamic typing (like LISP, Python, Ruby, BASIC, etc) can check, 
 %if the current number must be switched to bignum (if the result is too big to fit in the CPU register) or not.
+
+\levelup{}
 
