@@ -1,0 +1,116 @@
+\myheading{GCD}
+
+What is Greatest common divisor (\ac{GCD})?
+
+Let's suppose, you want to cut a rectangle by squares. What is maximal square could be?
+
+For a 14*8 rectangle, this is 2*2 square:
+
+% TODO make these blocks horizontally arranged:
+\begin{lstlisting}
+**************
+**************
+**************
+**************
+**************
+**************
+**************
+**************
+\end{lstlisting}
+
+% TODO tex symbol:
+->
+
+\begin{lstlisting}
+** ** ** ** ** ** **
+** ** ** ** ** ** **
+                  
+** ** ** ** ** ** **
+** ** ** ** ** ** **
+                  
+** ** ** ** ** ** **
+** ** ** ** ** ** **
+                  
+** ** ** ** ** ** **
+** ** ** ** ** ** **
+\end{lstlisting}
+
+What for 14*7 rectangle? It's 7*7 square:
+
+\begin{lstlisting}
+**************
+**************
+**************
+**************
+**************
+**************
+**************
+\end{lstlisting}
+
+->
+
+\begin{lstlisting}
+******* *******
+******* *******
+******* *******
+******* *******
+******* *******
+******* *******
+******* *******
+\end{lstlisting}
+
+14*9 rectangle? 1, i.e., smallest possible.
+
+\begin{lstlisting}
+**************
+**************
+**************
+**************
+**************
+**************
+**************
+**************
+**************
+**************
+\end{lstlisting}
+
+Also, GCD can be used to determine biggest ``granule'' for problem like \ref{XkcdILP}, and this is 0.05 or 5 for that example.
+
+GCD of \href{https://yurichev.com/blog/RSA/}{coprimes} is 1.
+
+\myhrule{}
+
+GCD is also a common set of factors of several numbers.
+This we can see in Mathematica:
+
+\begin{lstlisting}
+In[]:= FactorInteger[300]
+Out[]= {{2, 2}, {3, 1}, {5, 2}}
+
+In[]:= FactorInteger[333]
+Out[]= {{3, 2}, {37, 1}}
+
+In[]:= GCD[300, 333]
+Out[]= 3
+\end{lstlisting}
+
+I.e., $300=2^2 \cdot 3 \cdot 5^2$ and $333=3^2 \cdot 37$ and $GCD=3$, which is smallest factor.
+
+Or:
+
+\begin{lstlisting}
+In[]:= FactorInteger[11*13*17]
+Out[]= {{11, 1}, {13, 1}, {17, 1}}
+
+In[]:= FactorInteger[7*11*13*17]
+Out[]= {{7, 1}, {11, 1}, {13, 1}, {17, 1}}
+
+In[]:= GCD[11*13*17, 7*11*13*17]
+Out[]= 2431
+
+In[]:= 11*13*17
+Out[]= 2431
+\end{lstlisting}
+
+(Common factors are 11, 13 and 17, so $GCD = 11 \cdot 13 \cdot 17 = 2431$.)
+

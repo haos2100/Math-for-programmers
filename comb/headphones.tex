@@ -1,0 +1,24 @@
+\myheading{Soldering a headphones cable}
+
+Let's say, a cable have 3 wires, red/green/blue.
+Which is left/right and ground?
+Let's say, you can try all possible combinations.
+
+All permutations of 3 wires is 3!=6.
+
+\begin{lstlisting}[caption=Wolfram Mathematica]
+In[]:= Permutations[{red, green, blue}]
+
+Out[]= {{red, green, blue}, {red, blue, green}, {green, red, blue}, {green, blue, red}, {blue, red, green}, {blue, green, red}}
+\end{lstlisting}
+
+What if 4 wires?
+
+4!=24.
+
+\begin{lstlisting}[caption=Wolfram Mathematica]
+In[]:= Permutations[{red, green, blue , yellow}]
+
+Out[]= {{red, green, blue, yellow}, {red, green, yellow, blue}, {red, blue, green, yellow}, {red, blue, yellow, green}, {red, yellow, green, blue}, {red, yellow, blue, green}, {green, red, blue, yellow}, {green, red, yellow, blue}, {green, blue, red, yellow}, {green, blue, yellow, red}, {green, yellow, red, blue}, {green, yellow, blue, red}, {blue, red, green, yellow}, {blue, red, yellow, green}, {blue, green, red, yellow}, {blue, green, yellow, red}, {blue, yellow, red, green}, {blue, yellow, green, red}, {yellow, red, green, blue}, {yellow, red, blue, green}, {yellow, green, red, blue}, {yellow, green, blue, red}, {yellow, blue, red, green}, {yellow, blue, green, red}}
+\end{lstlisting}
+

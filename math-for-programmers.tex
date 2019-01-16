@@ -1,0 +1,142 @@
+﻿\documentclass{book}
+
+\usepackage{cmap}
+
+\usepackage[russian,english]{babel}
+\usepackage[T2A]{fontenc}
+\usepackage[default]{sourcesanspro}
+
+\usepackage{ifthen}
+
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{epigraph}
+\usepackage{url}
+\usepackage[cm]{fullpage}
+\usepackage{graphicx}
+\usepackage{framed}
+\usepackage{color}
+\usepackage{float}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usepackage[nottoc]{tocbibind}
+%\usepackage{esint}
+%\usepackage{charter}
+%\usepackage[charter]{mathdesign}
+\usepackage[footnote,printonlyused,withpage]{acronym}
+\usepackage[]{hyperref} % should be last
+
+%\definecolor{lstbgcolor}{rgb}{0.94,0.94,0.94}
+\definecolor{lstbgcolor}{rgb}{1,1,1}
+
+\newcommand{\TT}[1]{\texttt{#1}}
+
+\newcommand{\TITLE}{Mathematics for programmers (early draft)}
+\newcommand{\AUTHOR}{Dennis Yurichev \TT{<dennis(@)yurichev.com>}}
+
+\hypersetup{
+    pdftex,
+    colorlinks=true,
+    allcolors=blue,
+    pdfauthor={\AUTHOR},
+    pdftitle={\TITLE},
+    pdfpagemode=None
+}
+
+\iffalse
+\lstset{
+    backgroundcolor=\color{lstbgcolor},
+    basicstyle=\ttfamily, 
+    breaklines=true,
+    frame=single,
+    columns=fullflexible,keepspaces,
+}
+\fi
+
+\lstset{
+    %backgroundcolor=\color{lstbgcolor},
+    %backgroundcolor=\color{light-gray},
+    %basicstyle=\ttfamily\small,
+    basicstyle=\ttfamily\normalsize,
+    %basicstyle=\ttfamily\large,
+    %basicstyle=\ttfamily\footnotesize,
+    literate={~} {$\sim$}{1},
+    breaklines=true,
+    frame=single,
+    %columns=fullflexible,keepspaces,
+    columns=keepspaces,
+    escapeinside=§§,
+    inputencoding=utf8
+}
+
+\author{\AUTHOR}
+\title{\TITLE}
+%\date{August-2015 --- ...}
+
+\definecolor{digits}{RGB}{0,0,0}
+\definecolor{colkw}{RGB}{0,0,0}
+
+%\definecolor{colstr}{RGB}{80,80,80}
+%\definecolor{colid}{RGB}{80,80,80}
+
+\definecolor{colstr}{RGB}{0,0,0}
+\definecolor{colid}{RGB}{0,0,0}
+
+\definecolor{colcomment}{RGB}{130,130,130}
+%\definecolor{colcomment}{RGB}{170,170,170}
+
+\definecolor{colbg}{RGB}{255,255,255}
+
+\lstdefinestyle{custompy}{
+  language=Python,
+  showstringspaces=false,
+  backgroundcolor=\color{colbg},
+  keywordstyle=\color{colkw},
+  commentstyle=\color{colcomment},
+  identifierstyle=\color{colid},
+  stringstyle=\color{colstr}
+}
+
+\lstdefinestyle{customc}{
+  language=C,
+  showstringspaces=false,
+  backgroundcolor=\color{colbg},
+  keywordstyle=\color{colkw},
+  commentstyle=\color{colcomment},
+  identifierstyle=\color{colid},
+  stringstyle=\color{colstr}
+}
+
+\begin{document}
+
+\input{myheadings}
+
+\newcommand{\myhrule}{\begin{center}\rule{0.5\textwidth}{.4pt}\end{center}}
+
+\newcommand{\GitHubURL}{https://github.com/DennisYurichev/Math-for-programmers}
+\newcommand{\GitHubBlobMasterURL}{\GitHubURL/blob/master}
+\newcommand{\GitHubTreeMasterURL}{\GitHubURL/tree/master}
+
+\maketitle
+
+\tableofcontents
+
+%\section*{Thanks}
+
+%Thanks to those who helped: Slava ``Avid'' Kazakov, Serhiy Matviychuk.
+
+\mainmatter
+
+\newcommand{\CURPATH}{}
+
+\input{modulo/main}
+\input{prob/main}
+\input{comb/main}
+\input{GF2/main}
+\input{log/main}
+\input{symb/main}
+\input{graph/main}
+\input{GCD_LCM/main}
+\input{acronyms}
+
+\end{document}

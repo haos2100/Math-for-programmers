@@ -1,0 +1,26 @@
+\myheading{LCM}
+
+Many people use \ac{LCM} in school. Sum up $\frac{1}{4}$ and $\frac{1}{6}$.
+To find an answer mentally, you ought to find Lowest Common Denominator, which can be 4*6=24.
+Now you can sum up $\frac{6}{24} + \frac{4}{24} = \frac{10}{24}$.
+
+But the lowest denominator is also a LCM.
+LCM of 4 and 6 is 12: $\frac{3}{12} + \frac{2}{12} = \frac{5}{12}$.
+
+\leveldown{}
+
+\myheading{File copying routine}
+
+\epigraph{Buffer: A storage device used to compensate for a difference in data rate of data flow or time of occurrence of events, when transmitting data from one device to another.}
+{Clarence T. Jones, S. Percy Jones -- Patrick-Turner's Industrial Automation Dictionary}
+
+In GNU coreutils, we can find that LCM is used to find optimal buffer size, if buffer sizes in input and ouput files are differ.
+For example, input file has buffer of 4096 bytes, and output is 6144.
+Well, these sizes are somewhat suspicious. I made up this example.
+Nevertheless, LCM of 4096 and 6144 is 12288. This is a buffer size you can allocate, so that you will minimize number of read/write operations during copying.
+
+\url{https://github.com/coreutils/coreutils/blob/4cb3f4faa435820dc99c36b30ce93c7d01501f65/src/copy.c#L1246}.
+\url{https://github.com/coreutils/coreutils/blob/master/gl/lib/buffer-lcm.c}.
+
+\levelup{}
+

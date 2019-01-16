@@ -1,0 +1,79 @@
+\myheading{Reversible linear congruential generator}
+
+\ac{LCG} \ac{PRNG} is very simple: just multiply seed by some value, add another one and here is a new random number.
+Here is how it is implemented in MSVC (the source code is not original one and is reconstructed by me):</p>
+
+\begin{lstlisting}[style=customc]
+uint32_t state;
+
+uint32_t rand()
+{
+	state=state*214013+2531011;
+	return (state>>16)&0x7FFF;
+};
+\end{lstlisting}
+
+The last bit shift is attempt to compensate LCG weakness and we may ignore it so far.
+Will it be possible to make an inverse function to rand(), which can reverse state back?
+First, let's try to think, what would make this possible? Well, if state internal variable would be some kind of BigInt or BigNum container which can
+store infinitely big numbers, then, although state is increasing rapidly, it would be possible to reverse the process.
+But \textit{state} isn't BigInt/BigNum, it's 32-bit variable, and summing operation is easily reversible on it (just subtract 2531011 at each step).
+As we may know now, multiplication is also reversible: just multiply the state by modular multiplicative inverse of 214013!
+
+\begin{lstlisting}[style=customc]
+#include <stdio.h>
+#include <stdint.h>
+
+uint32_t state;
+
+void next_state()
+{
+	state=state*214013+2531011;
+};
+
+void prev_state()
+{
+	state=state-2531011; // reverse summing operation
+	state=state*3115528533; // reverse multiply operation. 3115528533 is modular inverse of 214013 in 2^32.
+};
+
+int main()[style=customc]
+{
+	state=12345;
+	
+	printf ("state=%d\n", state);
+	next_state();
+	printf ("state=%d\n", state);
+	next_state();
+	printf ("state=%d\n", state);
+	next_state();
+	printf ("state=%d\n", state);
+
+	prev_state();
+	printf ("state=%d\n", state);
+	prev_state();
+	printf ("state=%d\n", state);
+	prev_state();
+	printf ("state=%d\n", state);
+};
+\end{lstlisting}
+
+Wow, that works!
+
+\begin{lstlisting}
+state=12345
+state=-1650445800
+state=1255958651
+state=-456978094
+state=1255958651
+state=-1650445800
+state=12345
+\end{lstlisting}
+
+It's hard to find a real-world application of reversible LCG, but this could be the one:
+a media player with forward/backward buttons.
+Once shuffle is clicked, random number is generated (number of item to be played).
+User clicks forward: get a new random number by calculating the next state.
+User clicks backward: get it by calculating the previous state.
+Thus, a user could navigate through some "virtual" (but consistent) playlist, which is even not present in media player's memory!
+
