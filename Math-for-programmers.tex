@@ -1,4 +1,4 @@
-﻿\documentclass{book}
+﻿\documentclass[11pt]{book}
 
 \usepackage{cmap}
 
@@ -107,6 +107,9 @@
   stringstyle=\color{colstr}
 }
 
+% https://tex.stackexchange.com/questions/5148/how-can-i-change-the-font-size-in-math-equations
+% \DeclareMathSizes{12}{12}{12}{12}
+
 \begin{document}
 
 \input{myheadings}
@@ -116,6 +119,8 @@
 \newcommand{\GitHubURL}{https://github.com/DennisYurichev/Math-for-programmers}
 \newcommand{\GitHubBlobMasterURL}{\GitHubURL/blob/master}
 \newcommand{\GitHubTreeMasterURL}{\GitHubURL/tree/master}
+
+\newcommand{\SSBE}{``SAT/SMT by Example''\footnote{\url{https://yurichev.com/writings/SAT_SMT_by_example.pdf}}}
 
 \maketitle
 

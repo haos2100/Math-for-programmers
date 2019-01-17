@@ -1,0 +1,54 @@
+\myheading{Getting magic number using extended Euclidean algorithm}
+
+Extended Euclidean algorithm can find x/y for given a/b in the diophantine equation:
+$ax+by=gcd(a,b)$.
+
+x/y are also known as ``Bézout coefficients''.
+
+However, since a/b are coprime to each other, $gcd(a,b)=1$, and the algorithm will find
+x/y for the $ax+by=1$ equation.
+
+Let's plug $a=3$ and $b=2^{16}$ (like if we finding magic constant for 16-bit CPU):
+
+\lstinputlisting[style=customc]{modulo/EGCD.c}
+
+\begin{lstlisting}
+GCD: 1
+Bézout coefficients: -21845 1
+quotients by the GCD (s,t): 65536 -3
+corrected coefficients: 43691(0xaaab) 2(0x2)
+\end{lstlisting}
+
+That means, x=-21845, y=1.
+Is it correct?
+$-21845*3 + 65536*1=1$
+
+65536-21845=0xaaab, and this is the magic number for division by 3 on 16-bit CPU.
+
+$GCD(any\_odd\_number, 2^n)=1$ for any values.
+Hence, we can find a magic number for any even number.
+But, this is not true for even numbers.
+We can't find magic coefficient for even number like 10.
+But you can find it for 5, and then add additional division by 2 using shift right.
+
+If you try to compile $\frac{x}{10}$ code, GCC can do it like:
+
+\begin{lstlisting}
+push   %ebp
+mov    %esp,%ebp
+mov    0x8(%ebp),%eax
+mov    $0xcccccccd,%edx
+mul    %edx
+mov    %edx,%eax
+shr    $0x3,%eax
+pop    %ebp
+ret    
+\end{lstlisting}
+
+This is in fact the magic number for division by 5.
+And there is 3 instead of 2 in the SHR instruction, so the result is divided by 2.
+
+Extended Euclidean algorithm is probably an efficient way of finding magic number, but needless to say,
+this equation can be solved using other ways.
+In \SSBE you can find a method of finding "magic number" using SMT-solver.
+

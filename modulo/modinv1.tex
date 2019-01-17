@@ -1,4 +1,6 @@
-\myheading{Modulo inverse}
+\myheading{Modulo inverse, part I}
+
+\leveldown{}
 
 Example: this piece of code divides by 17:
 
@@ -16,18 +18,6 @@ int main()
 	printf ("%d\n", div17(1700));	// result=100
 	printf ("%d\n", div17(34));	// result=2
 	printf ("%d\n", div17(2091));	// result=123
-};
-\end{lstlisting}
-
-Unfortunately, it can't produce correct quotient if $remainder \neq 0$, so it's not very useful.
-But this code (which divides by 9, though) works correctly in all cases:
-
-\begin{lstlisting}[style=customc]
-#include <stdint.h>
-
-uint32_t divide_by_9 (uint32_t a)
-{
-        return ((uint64_t)a * (uint64_t)954437177) >> 33; // 954437177 = 0x38e38e39
 };
 \end{lstlisting}
 
@@ -72,7 +62,8 @@ Let's divide 3, 6 and 9 by 3, by multiplying by 11 (m).
 \fi
 
 %\begin{lstlisting}[basicstyle=\small]
-\begin{lstlisting}[basicstyle=\footnotesize]
+%\begin{lstlisting}[basicstyle=\footnotesize]
+\begin{lstlisting}[basicstyle=\scriptsize]
            |123456789abcdef0|12 ... f0|123456789abcdef0|12 ... f0|123456789abcdef0|12 ... f0|123456789abcdef0|
     m=11   |***********     |   ...   |                |   ...   |                |   ...   |                |
 3/3 3m=33  |****************|** ... **|*               |   ...   |                |   ...   |                |
@@ -80,7 +71,7 @@ Let's divide 3, 6 and 9 by 3, by multiplying by 11 (m).
 9/3 9m=99  |****************|** ... **|****************|** ... **|****************|** ... **|***             |
 \end{lstlisting}
 
-A "protruding" asterisk(s) (*) in the last non-empty chunk is what will be left in 4-bit register.
+A ``protruding'' asterisk(s) (``*'') in the last non-empty chunk is what will be left in 4-bit register.
 This is 1 in case of 33, 2 if 66, 3 if 99.
 
 In fact, this "protrusion" is defined by 1 in the equation we've solved.
@@ -97,6 +88,8 @@ Let's divide 6 by 3. 6*6=36=0x24, 4 will be left in the register. This is also i
 
 Replace 1 in the equation by 0, and nothing will "protrude".
 
+\myheading{No remainder?}
+
 Now the problem: this only works for dividends in 3x form, i.e., which can be divided by 3 with no remainder.
 Try to divide 4 by 3, 4*11=44=0x2c, 12 will be left in register, this is incorrect.
 The correct quotient is 1.
@@ -111,4 +104,6 @@ Let's "divide" 8 by 3. 8*11=88=0x58. 5/2=2, this is correct answer again.
 
 Now this is the formula we can use on our 4-bit CPU to divide numbers by 3: "x*3 >> 4 / 2" or "x*3 >> 5".
 This is the same as almost all modern compilers do instead of integer division, but they do this for 32-bit and 64-bit registers.
+
+\levelup{}
 
