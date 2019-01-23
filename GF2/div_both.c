@@ -107,10 +107,10 @@ uint32_t remainder_GF2(uint32_t dividend, uint32_t divisor)
 			tmp=tmp|bit;
 		};
 
-		// at this point, tmp variable/value has 33 bits: shifted_bit + tmp
+		// \verb|at this point, tmp variable/value has 33 bits: shifted_bit + tmp|
 		// now take the most significant bit (33th) and test it:
 		// 33th bit of polynomial (not present in "divisor" variable is always 1
-		// so we have to only check shifted_bit value
+		// \verb|so we have to only check shifted_bit value|
 		if (shifted_bit)
 		{
 			// use only 32 bits of polynomial, ingore 33th bit, which is always 1:

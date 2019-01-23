@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdint.h>
 
-// copypasted and reworked from https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm
+// copypasted and reworked from \url{https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm}
 void EGCD (int a, int b)
 {
 	int s=0; int old_s=1;
@@ -26,8 +26,7 @@ void EGCD (int a, int b)
 	printf ("Bézout coefficients: %d %d\n", old_s, old_t);
 	printf ("quotients by the GCD (s,t): %d %d\n", s, t);
 
-	// see also:
-	// https://math.stackexchange.com/questions/1310415/extended-euclidean-algorithm-with-negative-numbers-minimum-non-negative-solution
+	// see also: \url{https://math.stackexchange.com/q/1310415}
 	if (old_s>=0 && old_t<=0)
 		printf ("corrected coefficients: %d(0x%x) %d(0x%x)\n", old_s, old_s, -old_t, -old_t);
 	else if (old_s<=0 && old_t >=0)

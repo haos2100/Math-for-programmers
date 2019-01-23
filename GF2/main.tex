@@ -108,7 +108,7 @@ unsigned int divide(unsigned int dividend, unsigned int divisor)
 }
 \end{lstlisting}
 
-( \url{FIXME/div.c} )
+( \url{\GitHubBlobMasterURL/\CURPATH/div.c} )
 
 Let's divide 1234567 by 813 and find remainder:
 
@@ -188,8 +188,8 @@ uint32_t remainder_arith(uint32_t dividend, uint32_t divisor)
 }
 \end{lstlisting}
 
-( \url{FIXME/div_both.c} )
-	
+( \url{\GitHubBlobMasterURL/\CURPATH/div_both.c} )
+
 Let's divide 1234567 by 813 and find remainder:
 
 \lstinputlisting{\CURPATH/log.txt}
@@ -264,10 +264,10 @@ uint32_t remainder_GF2(uint32_t dividend, uint32_t divisor)
 			tmp=tmp|bit;
 		};
 
-		// at this point, tmp variable/value has 33 bits: shifted_bit + tmp
+		// \verb|at this point, tmp variable/value has 33 bits: shifted_bit + tmp|
 		// now take the most significant bit (33th) and test it:
 		// 33th bit of polynomial (not present in "divisor" variable is always 1
-		// so we have to only check shifted_bit value
+		// \verb|so we have to only check shifted_bit value|
 		if (shifted_bit)
 		{
 			// use only 32 bits of polynomial, ingore 33th bit, which is always 1:
@@ -279,7 +279,7 @@ uint32_t remainder_GF2(uint32_t dividend, uint32_t divisor)
 }
 \end{lstlisting}
 
-( \url{FIXME/div_both.c} )
+( \url{\GitHubBlobMasterURL/\CURPATH/div_both.c} )
 
 And voila, this is the function which computes CRC32 for the input 32-bit value.
 
@@ -308,7 +308,7 @@ As simple as that.
 
 \myheading{Rationale}
 
-Why would anyone use such an unusual mathematics?
+Why use such an unusual mathematics?
 The answer is: many GF(2) operations can be done using bit shifts and XOR, which are very cheap operations.
 
 Electronic circuit for CRC generator is extremely simple, it consists of only shift register and XOR gates.

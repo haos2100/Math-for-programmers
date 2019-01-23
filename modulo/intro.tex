@@ -77,7 +77,7 @@ when sum is too big for register, CF (carry flag) is set, and it can be used aft
 And there is x86 MUL instruction which in fact produces 64-bit result in 32-bit environment (in EDX:EAX registers pair).
 That's true, but observing just 32-bit registers, this is exactly environment of modulo with base $2^{32}$.
 
-Now that leads to surprising consequence: almost every result of arithmetic operation stored in general purpose register of
+Now that leads to a surprising consequence: almost every result of arithmetic operation stored in general purpose register of
 32-bit CPU is in fact
 remainder of division operation: result is always divided by $2^{32}$ and remainder is left in register.
 For example, 0x16612FDDB is too large for storage, and it's divided by $2^{32}$ (or 0x100000000).
@@ -223,8 +223,8 @@ Out[]= <|0 -> 328, 1 -> 328, 2 -> 328, 3 -> 328, 4 -> 328, 5 -> 328,
 
 This is sometimes called \textit{modulo bias}. It's perhaps acceptable for videogames, but may be critical for scientific simulations, including Monte Carlo method.
 
-Constructing a \ac{PRNG} with uniform distribution may be tricky, there are couple of methods:
-\url{http://www.reddit.com/r/algorithms/comments/39tire/using_a_01_generator_generate_a_random_number/},
+Constructing a \ac{PRNG} with uniform distribution may be tricky, there are couple of methods:\\
+\url{http://www.reddit.com/r/algorithms/comments/39tire/using_a_01_generator_generate_a_random_number/},\\
 \url{http://www.prismmodelchecker.org/casestudies/dice.php}.
 
 \levelup{}

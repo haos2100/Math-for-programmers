@@ -25,7 +25,7 @@ There is, however, performance issue: the number must be converted back, but thi
 
 Here is an example from NetBSD NTP client ( \texttt{netbsd-5.1.2/usr/src/dist/ntp/include/ntp.h} ):
 
-\begin{lstlisting}[caption=C code]
+\begin{lstlisting}[caption=C code,style=customc]
 /*
  * Poll interval parameters
  */
@@ -38,7 +38,7 @@ Here is an example from NetBSD NTP client ( \texttt{netbsd-5.1.2/usr/src/dist/nt
 
 Couple examples from zlib (\texttt{deflate.h}):
 
-\begin{lstlisting}[caption=C code]
+\begin{lstlisting}[caption=C code,style=customc]
     uInt  w_size;        /* LZ77 window size (32K by default) */
     uInt  w_bits;        /* log2(w_size)  (8..16) */
     uInt  w_mask;        /* w_size - 1 */
@@ -46,13 +46,13 @@ Couple examples from zlib (\texttt{deflate.h}):
 
 Another piece from zlib ( \texttt{contrib/blast/blast.c} ):
 
-\begin{lstlisting}[caption=C code]
+\begin{lstlisting}[caption=C code,style=customc]
     int dict;           /* log2(dictionary size) - 6 */
 \end{lstlisting}
 
 If you need to generate bitmasks in range 1, 2, 4, 8...0x80000000, it is good idea to assign self-documenting name to iterator variable:
 
-\begin{lstlisting}[caption=C code]
+\begin{lstlisting}[caption=C code,style=customc]
 for (log2_n=1; log2_n<32; log2_n++)
     1<<log2_n;
 \end{lstlisting}
@@ -61,7 +61,7 @@ Now about compactness, here is the fragment I found in OpenBSD, related to SGI I
 \footnote{\url{http://www.linux-mips.org/wiki/IP22}} \\
 ( \texttt{OS/OpenBSD/sys/arch/sgi/sgi/ip22\_machdep.c} ):
 
-\begin{lstlisting}[caption=C code]
+\begin{lstlisting}[caption=C code,style=customc]
                 /*
                  * Secondary cache information is encoded as WWLLSSSS, where
                  * WW is the number of ways
@@ -75,12 +75,12 @@ Now about compactness, here is the fragment I found in OpenBSD, related to SGI I
 
 Here is another example of using binary logarithm in Mozilla JavaScript engine (JIT compiler)
 \footnote{\url{http://fossies.org/linux/seamonkey/mozilla/js/src/jit/mips/CodeGenerator-mips.cpp}}.
-If some number is multiplied by $2^x$, the whole operation can be replaced by bit shift left.
+If some number is multiplied by $2^x$, the whole operation can be replaced by bit shift left. \\
 The following code ( \texttt{js/src/jit/mips/CodeGenerator-mips.cpp} ), 
 when translating multiplication operation into MIPS machine code, first, get assured if the number 
 is really has $2^x$ form, then it takes binary logarithm of it and generates MIPS SLL instruction, which states for ``Shift Left Logical''.
 
-\begin{lstlisting}[caption=Mozilla JavaScript JIT compiler (translating multiplication operation into MIPS bit shift instruction)]
+\begin{lstlisting}[caption=Mozilla JavaScript JIT compiler (translating multiplication operation into MIPS bit shift instruction),style=customc]
 bool
  CodeGeneratorMIPS::visitMulI(LMulI *ins)
  {
@@ -113,7 +113,7 @@ In practice, this is the task of calculating leading zeroes.
 Here is example from Mozilla libraries ( \texttt{mfbt/MathAlgorithms.h}
 \footnote{\url{http://fossies.org/linux/seamonkey/mozilla/mfbt/MathAlgorithms.h}} ):
 
-\begin{lstlisting}[caption=Mozilla libraries]
+\begin{lstlisting}[caption=Mozilla libraries,style=customc]
 class FloorLog2<T, 4>
 {
 public:
@@ -153,7 +153,7 @@ Let's see how this can be.
 Let's recall child's number guessting game\footnote{\url{http://rosettacode.org/wiki/Guess_the_number}}.
 One player think about some number, the other should guess it, offering various versions.
 First player answers, is guessed number is larger or less.
-Typical dialogue can be as the follows:
+A typical dialogue:
 
 \begin{lstlisting}
 -- I think of a number in 1..100 range.

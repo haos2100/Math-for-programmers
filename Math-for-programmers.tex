@@ -26,6 +26,9 @@
 \usepackage[footnote,printonlyused,withpage]{acronym}
 \usepackage[]{hyperref} % should be last
 
+% https://tex.stackexchange.com/questions/32047/how-to-remove-the-skip-after-a-listing-when-parskip-is-increased-with-basel
+\usepackage{parskip}
+
 %\definecolor{lstbgcolor}{rgb}{0.94,0.94,0.94}
 \definecolor{lstbgcolor}{rgb}{1,1,1}
 
@@ -73,39 +76,7 @@
 \title{\TITLE}
 %\date{August-2015 --- ...}
 
-\definecolor{digits}{RGB}{0,0,0}
-\definecolor{colkw}{RGB}{0,0,0}
-
-%\definecolor{colstr}{RGB}{80,80,80}
-%\definecolor{colid}{RGB}{80,80,80}
-
-\definecolor{colstr}{RGB}{0,0,0}
-\definecolor{colid}{RGB}{0,0,0}
-
-\definecolor{colcomment}{RGB}{130,130,130}
-%\definecolor{colcomment}{RGB}{170,170,170}
-
-\definecolor{colbg}{RGB}{255,255,255}
-
-\lstdefinestyle{custompy}{
-  language=Python,
-  showstringspaces=false,
-  backgroundcolor=\color{colbg},
-  keywordstyle=\color{colkw},
-  commentstyle=\color{colcomment},
-  identifierstyle=\color{colid},
-  stringstyle=\color{colstr}
-}
-
-\lstdefinestyle{customc}{
-  language=C,
-  showstringspaces=false,
-  backgroundcolor=\color{colbg},
-  keywordstyle=\color{colkw},
-  commentstyle=\color{colcomment},
-  identifierstyle=\color{colid},
-  stringstyle=\color{colstr}
-}
+\input{syntax_color}
 
 % https://tex.stackexchange.com/questions/5148/how-can-i-change-the-font-size-in-math-equations
 % \DeclareMathSizes{12}{12}{12}{12}
@@ -142,6 +113,7 @@
 \input{symb/main}
 \input{graph/main}
 \input{GCD_LCM/main}
+\input{linear/main}
 \input{acronyms}
 
 \end{document}

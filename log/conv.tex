@@ -47,7 +47,7 @@ Now the task of computing common logarithm can be solved using just two FPU inst
 This piece of code I found inside of Windows NT4 ( \texttt{src/OS/nt4/private/fp32/tran/i386/87tran.asm} ), 
 this function is capable of computing both common and natural logarithms: 
 
-\begin{lstlisting}[caption=Assembly language code]
+\begin{lstlisting}[caption=Assembly language code,style=customasmx86]
 lab fFLOGm
         fldlg2                          ; main LOG10 entry point
         jmp     short fFYL2Xm

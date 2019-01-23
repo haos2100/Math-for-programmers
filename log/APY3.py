@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-initial=100 # $100
-APY=0.025 # Annual percentage yield = 2.5%
+initial=100 # \$100
+APY=0.025 # Annual percentage yield = 2.5\%
 
 current=initial
 
